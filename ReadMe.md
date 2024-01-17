@@ -13,7 +13,7 @@ The images will be stored in a cloudflare R2 instance which you will configure (
 ## Important commands
 
 Run dev build ``npm run start`` \
-Deploy production ``npm run deploy``
+Deploy production ``npm run deploy`` \
 Read logs from production ``wangler tail --format=pretty``
 
 If your project is small enough and you are not worried about testing in production, you can simply deploy in production and then read the logs. You can even create a dev build, but you will need to create a new worker instance. Please check out this [doc](https://developers.cloudflare.com/workers/configuration/environment-variables/) for more information.
