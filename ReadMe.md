@@ -1,4 +1,8 @@
-### AI thumbnail Cron job
+### AI thumbnail Cron job (Cloudflare Worker)
+
+## About
+This cloudflare worker can be configured as an endpoint to generate AI thumbnails, or be configured to behave as a cron job and generate an AI image on a schedule. Check the ``Cron Job`` section for more info.
+The images will be stored in a cloudflare R2 instance which you will configure (``bucketName``). Check the ``Env variables`` section.
 
 ## Prerequisites 
 1. Node installed
@@ -8,11 +12,14 @@
 
 ## Important commands
 
-Deploy build ``npm run start`` \
-Read logs ``wangler tail --format=pretty``
+Run dev build ``npm run start`` \
+Deploy production ``npm run deploy``
+Read logs from production ``wangler tail --format=pretty``
+
+If your project is small enough and you are not worried about testing in production, you can simply deploy in production and then read the logs. You can even create a dev build, but you will need to create a new worker instance. Please check out this [doc](https://developers.cloudflare.com/workers/configuration/environment-variables/) for more information.
 
 ## Env variables
-The env variables are listed in `wrangler.toml`. They are listed under the `[vars]` heading. \
+The env variables are listed in ``wrangler.example.toml``. Rename the file to ``wrangler.toml``. They are listed under the `[vars]` heading. \
 Some of these values should not be added in `wrangler.toml`, but in cloudflare directly. They will need to be encrypted in cloudflare. 
 After deploying the instance go to your cloudflare account and go to Workers & Pages → Select your worker → Settings → Variables. Add the 
 secrets manually here. You will need to encrypt them by selecting the encryption button. 
@@ -30,5 +37,5 @@ secrets manually here. You will need to encrypt them by selecting the encryption
 
 ## Cron job
 
-Every day a new thumbnail will be generated. This worker is configured to obtained the prompts from another microservice. In this case ``https://github.com/handriamanantena/daily-art-backend``.
+To enable the cron job you need to configure the ``[triggers]`` section in the ``wrangler.toml`` file. Please check out [this link](https://developers.cloudflare.com/workers/configuration/cron-triggers/) on how to configure triggers/cron jobs in cloudflare.
 
